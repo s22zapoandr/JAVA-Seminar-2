@@ -1,15 +1,19 @@
 package model;
-
 public class Course {
-	private long CID;
+	private long cID;
 	private String title;
 	private int creditpoints;
 	private Professor professor;
-	public long getCID() {
-		return CID;
+	
+	
+	int counter = 0;
+	
+	public long getcID() {
+		return cID;
 	}
-	public void setCID(long cID) {
-		CID = cID;
+	public void setcID() {
+		cID = counter;
+		counter++;
 	}
 	public String getTitle() {
 		return title;
@@ -39,6 +43,19 @@ public class Course {
 			this.professor = new Professor();
 	}
 	 // Constructors
+	
+	public Course() {
+		setcID();
+		setTitle("Course title");
+		setCreditpoints(5);
+		setProfessor(new Professor());
+	}
+	public Course(long cID, String title, int creditPoints, Professor professor) {
+		setcID();
+		setTitle(title);
+		setCreditpoints(creditPoints);
+		setProfessor(professor);
+	}
 	
 	
 }
