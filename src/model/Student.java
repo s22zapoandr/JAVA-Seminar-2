@@ -1,11 +1,10 @@
 package model;
 
-public class Professor {
+public class Student {
 	//1. variables
 	private long pID;
 	private String name;
 	private String surname;
-	private Degree profDegree;
 	
 	private static long counter = 0;
 	
@@ -35,33 +34,19 @@ public class Professor {
 		else
 			this.surname = "Undefinied";
 	}
-	public Degree getProfDegree() {
-		return profDegree;
-	}
-	public void setProfDegree(Degree profDegree) {
-		if(profDegree != null)
-			this.profDegree = profDegree;
-		else
-			this.profDegree = Degree.other;
-	}
-		
-	//2. set and get
+
 	
 	
 	
-	
-	
-	public Professor(){
+	public Student(){
 		setpID();
-		setName("John");
-		setSurname("Big");
-		setProfDegree(Degree.other);
+		setName("Andrii");
+		setSurname("Zaporozhets");
 	}
-	public Professor(String name, String surname, Degree profDegree) {
+	public Student(String name, String surname) {
 		setpID();
 		setName(name);
 		setSurname(surname);
-		setProfDegree(profDegree);
 	}
 	
 	
@@ -69,7 +54,7 @@ public class Professor {
 	@Override
 	public String toString()
 	{
-		return pID + ": " + name + " " + surname + "(" + profDegree + ")";
+		return pID + ": " + name + " " + surname;
 	}
 	
 	//5. other functions
