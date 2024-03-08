@@ -6,7 +6,7 @@ public class Course {
 	private Professor professor;
 	
 	
-	int counter = 0;
+	static  long counter = 0;
 	
 	public long getcID() {
 		return cID;
@@ -19,7 +19,7 @@ public class Course {
 		return title;
 	}
 	public void setTitle(String title) {
-		if(title != null && title.matches("[A-Za-z 0-9]{4, 40}"))
+		if(title != null && title.matches("[A-Za-z 0-9]{4,40}"))
 			this.title = title;
 		else
 			this.title = "Undefined";
@@ -36,11 +36,15 @@ public class Course {
 	public Professor getProfessor() {
 		return professor;
 	}
-	public void setProfessor(Professor professor) {
-		if(this.professor != null)
-			this.professor = professor;
+	public void setProfessor(Professor Imputprofessor) {
+		if(Imputprofessor != null)
+			this.professor = Imputprofessor;
 		else
 			this.professor = new Professor();
+	}
+	public String toString()
+	{
+		return cID + ": " + title + " (" + creditpoints + ") professor " + professor; 
 	}
 	 // Constructors
 	
@@ -50,7 +54,7 @@ public class Course {
 		setCreditpoints(5);
 		setProfessor(new Professor());
 	}
-	public Course(long cID, String title, int creditPoints, Professor professor) {
+	public Course(String title, int creditPoints, Professor professor) {
 		setcID();
 		setTitle(title);
 		setCreditpoints(creditPoints);

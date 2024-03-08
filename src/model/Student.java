@@ -28,9 +28,9 @@ public class Student {
 	public String getSurname() {
 		return surname;
 	}
-	public void setSurname(String surname) {
-		if(surname != null && surname.matches("[A-Z]{1}[a-z]{1,20}"))
-			this.surname = surname;
+	public void setSurname(String inputSurname) {
+		if(inputSurname != null && inputSurname.matches("[A-Z]{1}[a-z]{1,20}"))
+			this.surname = inputSurname;
 		else
 			this.surname = "Undefinied";
 	}
