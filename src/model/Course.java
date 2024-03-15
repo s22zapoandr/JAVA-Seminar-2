@@ -24,10 +24,10 @@ public class Course {
 		else
 			this.title = "Undefined";
 	}
-	public int getCreditpoints() {
+	public int getCreditPoints() {
 		return creditpoints;
 	}
-	public void setCreditpoints(int creditpoints) {
+	public void setCreditPoints(int creditpoints) {
 		if(creditpoints > 0 && creditpoints <= 20)
 			this.creditpoints = creditpoints;
 		else
@@ -51,13 +51,13 @@ public class Course {
 	public Course() {
 		setcID();
 		setTitle("Course title");
-		setCreditpoints(5);
+		setCreditPoints(5);
 		setProfessor(new Professor());
 	}
 	public Course(String title, int creditPoints, Professor professor) {
 		setcID();
 		setTitle(title);
-		setCreditpoints(creditPoints);
+		setCreditPoints(creditPoints);
 		setProfessor(professor);
 	}
 	

@@ -1,140 +1,272 @@
 package service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import model.Course;
 import model.Degree;
 import model.Grade;
 import model.Professor;
 import model.Student;
-import model.Course;
-
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-
-
-
-public class MainService {
-	private static ArrayList<Professor>AllofProfessors = new
-			ArrayList<Professor>();
-	private static ArrayList<Student>AllofStudents = new
-			ArrayList<Student>();
-	private static ArrayList<Course>AllofCourses = new
-			ArrayList<Course>();
-	private static ArrayList<Grade>AllofGrades = new
-			ArrayList<Grade>();
-	
 //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
+public class MainService {
+
+	
+	private static ArrayList<Professor> allProfessors = new ArrayList<Professor>();
+	private static ArrayList<Student> allStudents = new ArrayList<Student>();
+	private static ArrayList<Course> allCourses = new ArrayList<Course>();
+	private static ArrayList<Grade> allGrades= new ArrayList<Grade>();
+	
 	public static void main(String[] args) {
-		Professor pr1 = new Professor();
-		Professor pr2 = new Professor("Karina", "Skirmane", Degree.mg);
+		Professor pr1 = new Professor();//John Big - default Professor
+		Professor pr2 = new Professor("Karina", "Skirmante", Degree.mg);
 		Professor pr3 = new Professor("Estere", "Vitola", Degree.mg);
-		AllofProfessors.addAll(Arrays.asList(pr1, pr2, pr3));
-		Student st1 = new Student();
-		Student st2 = new Student("Igors" , "Goncarovs");
-		Student st3 = new Student("Anton" , "Volkov");
-		AllofStudents.addAll(Arrays.asList(st1, st2, st3));
-		Course c1= new Course();
-		Course c2= new Course("JAVA", 4, pr2);
-		Course c3= new Course("Data Structures" , 4, pr3);
-		AllofCourses.addAll(Arrays.asList(c1, c2, c3));
-		Grade g1 = new Grade();
-		Grade g2 = new Grade(2, st2, c2);
-		Grade g3 = new Grade(10, st3, c3);
-		AllofGrades.addAll(Arrays.asList(g1, g2, g3));
-		
-		
-		for(Professor tempProf : AllofProfessors) {
-			System.out.println(tempProf);
+		Professor pr4 = new Professor("Marcis", "Naktins", Degree.mg);
+		allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
+		//TODO take a look to ArrayList class in JAVA documentations
+		for(int i = 0; i < allProfessors.size(); i++) {
+			System.out.println(allProfessors.get(i));
 		}
-		for(Student tempSt : AllofStudents) {
+		System.out.println("------------------------------");
+		for(Professor tempPr : allProfessors) {
+			System.out.println(tempPr);
+		}
+		System.out.println("------------------------------");
+		
+		
+		
+		Student st1 = new Student();//Lara Bernardes student
+		Student st2 = new Student("Viktors", "Kokin", "123456-09876");
+		Student st3 = new Student("Davyd", "Akimov", "121298-67894");
+		allStudents.addAll(Arrays.asList(st1,st2,st3));
+		
+		for(Student tempSt: allStudents) {
 			System.out.println(tempSt);
 		}
-		for(Course tempC : AllofCourses) {
-			System.out.println(tempC);
-		}
-		for(Grade tempG : AllofGrades) {
-			System.out.println(tempG);
+		
+		
+		Course c1 = new Course();
+		Course c2 = new Course("Data Structure", 2, pr3);
+		Course c3 = new Course("Networking", 4, pr4);
+		Course c4 = new Course("Object Oriented Programming I", 4, pr3);
+		allCourses.addAll(Arrays.asList(c1, c2, c3, c4));
+		
+		for(Course tempCr: allCourses) {
+			System.out.println(tempCr);
 		}
 		
-		try {
-			System.out.println("Average grade for " + st1.getName() + " " + st1.getSurname() + " " + calculateAVG(st1) );
-			System.out.println("Average weighted grade for " + st2.getName() + " " + st2.getSurname() + " " + calculateAVWG(st2) );
-			System.out.println("Average grade for " + c1.getTitle() + ": " + courseAVG(c1));
-			for()
+		Grade gr1 = new Grade();
+		Grade gr2 = new Grade(4, st3, c3);// 4 for Davyd in Networking
+		Grade gr3 = new Grade(10, st3, c2);// 10 for Davyd in Data Structure
+		Grade gr4 = new Grade(7, st2, c2); //7 for Viktors in Data Structure
+		Grade gr5 = new Grade(8, st2, c3);//8 for Viktors in Networking
+		Grade gr6 = new Grade(10, st2, c1);//8 for Viktors in JAVA
+		Grade gr7 = new Grade(5, st1, c1);//5 for Lara in JAVA
+		allGrades.addAll(Arrays.asList(gr1,gr2, gr3, gr4, gr5, gr6, gr7));
+		
+		for(Grade tempGr: allGrades) {
+			System.out.println(tempGr);
+		}
+		
+		try
+		{
+			System.out.println(st2.getName() + " " + st2.getSurname() + " -> "
+				+calculateAVGForStudent(st2));
+			
+			System.out.println(st2.getName() + " " + st2.getSurname() + " -> "
+					+calculateWeightedAVGForStudent(st2));
+		
+			System.out.println(st3.getName() + " " + st3.getSurname() + " -> "
+				+calculateAVGForStudent(st3));
+			
+			System.out.println(st3.getName() + " " + st3.getSurname() + " -> "
+					+calculateWeightedAVGForStudent(st3));
+			
+			
+			System.out.println(c2.getTitle() + " -> " + calculateAVGInCourse(c2));
+			System.out.println(c3.getTitle() + " -> " + calculateAVGInCourse(c3));
+			
+			
+			System.out.println(pr4.getName() + " " + pr4.getSurname() + " leads " + 
+					calculateHowManyCoursesbyProfessor(pr4) + " courses");
+			
+			System.out.println(pr3.getName() + " " + pr3.getSurname() + " leads " + 
+					calculateHowManyCoursesbyProfessor(pr3) + " courses");
+			
+			System.out.println("------------------------");
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> "
+						+calculateAVGForStudent(tempSt));
+			}
+			
+			sortStudents();
+			System.out.println("------------------------");
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> "
+						+calculateAVGForStudent(tempSt));
+			}
+			
 			
 		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 		
+		
+	}
+	
+	
+	
+	
+	public static float calculateAVGForStudent(Student inputStudent) throws Exception {
+		if(inputStudent == null) throw new Exception("Problems with input");
+		
+		
+		float sum = 0;
+		int howMany = 0;
+		
+		
+		for(Grade tempGr : allGrades) {
+			if(tempGr.getStudent().equals(inputStudent)) {
+				sum = sum + tempGr.getValue();
+				howMany++;
+			}
+		}
+		
+		
+		return sum/howMany;
+			
+	}
+	
+	//JAVA 6 and DataStructure 8 AVG = (6+8)/2 = 7
+	//JAVA 6 (4CP) DataStructure 8 (2CP) = ((6 * 4CP) + (8 * 2CP))/ (4CP +2CP) = (24 +16)/6= 40/6 = 6.666
+		
+	public static float calculateWeightedAVGForStudent(Student inputStudent) throws Exception {
+		if(inputStudent == null) throw new Exception("Problems with input");
+		
+		float sum = 0;
+		int howManyCP = 0;
+		
+		
+		for(Grade tempGr : allGrades) {
+			if(tempGr.getStudent().equals(inputStudent)) {
+				sum = sum + tempGr.getValue() * tempGr.getCourse().getCreditPoints();
+				howManyCP = howManyCP + tempGr.getCourse().getCreditPoints();
+			}
+		}
+		
+		return sum/howManyCP;
+		
+	}
+	
+	
+	public static float calculateAVGInCourse(Course inputCourse) throws Exception {
+		if(inputCourse == null) throw new Exception("Problems with input");
+		
+		
+		float sum = 0;
+		int howMany = 0;
+		
+		for(Grade tempGr: allGrades) {
+			if(tempGr.getCourse().equals(inputCourse)) {
+				sum = sum + tempGr.getValue();
+				howMany++;
+			}
+		}
+		
+		return sum/howMany;
+		
+	}
+	
+	public static int calculateHowManyCoursesbyProfessor(Professor inputProfessor) throws Exception {
+		if(inputProfessor == null) throw new Exception("Problems with input");
+		
+		int howMany = 0;
+		
+		
+		for(Course tempCr : allCourses) {
+			if(tempCr.getProfessor().equals(inputProfessor)) {
+				howMany++;
+			}
+		}
+		
+		return howMany;
+	}
+	
+	public static void sortStudents() throws Exception {
+		
+		
+		for(int i = 0; i < allStudents.size(); i++) {
+			for(int j = 0; j < allStudents.size(); j++) {
+				
+				Student tempI = allStudents.get(i);
+				Student tempJ = allStudents.get(j);
+				if(calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI)) {
+					Student temp  =  allStudents.get(i);
+					allStudents.set(i, allStudents.get(j));
+					allStudents.set(j, temp);
+				}
+				
+				
+			}
+		}
+	}
+	
+	//TODO
+	//calculates how many professors have phd as degree
+	
+	public static int howManyProfessorsHavePHD() {
+		
+		int howMany = 0;
+		
+		for(Professor tempPr: allProfessors) {
+			if(tempPr.getProfDegree().equals(Degree.phd)) {
+				howMany++;
+			}
+		}
+		
+		return howMany;
+		
+	}
+	//calculates how many grades are smaller than 4 in specific course
+	//calculates how many CP professor need to lead
+	
+	public static Student retrieveStudentByPersoncode(String inputPersonCode) throws Exception {
+		if(inputPersonCode == null) throw new Exception ("Invalid input");
+		
+		for(Student tempSt: allStudents) {
+			if(tempSt.getPersonCode().equals(inputPersonCode)) {
+				return tempSt;
+			}
+		}
+		throw new Exception("Student not found");
+	}
+	 
+	public static void createStudent(String inputName, String inputSurname, String inputPersonCode) throws Exception {
+		if(inputPersonCode == null || inputName == null || inputSurname == null) throw new Exception ("Invalid input");
+		
+		for(Student tempSt: allStudents) {
+			if(tempSt.getPersonCode().equals(inputPersonCode)) throw new Exception ("Student with input person code already exists");
+			else {
+				Student newStudent = new Student(inputName, inputSurname, inputPersonCode);
+				allStudents.add(newStudent);
+				System.out.println("Meet new student -" + newStudent.toString() );
+			}
+		}
+	}
+	
+	public static void updateStudentbyPersonCode(String inputName, String inputSurname, String inputPersonCode) throws Exception{
+		if(inputPersonCode == null || inputName == null || inputSurname == null) throw new Exception ("Invalid input");
+		
+		for(Student tempSt: allStudents) {
+			if(tempSt.getPersonCode().equals(inputPersonCode)) {
+				tempSt.setName(inputSurname);
+				tempSt.setSurname(inputSurname);
+				return;
+			}
+			
+		} throw new Exception("The student is not found in the list");
 	
 	}
-		public static float calculateAVG(Student inputStudent) throws Exception{
-			if(inputStudent == null) throw new Exception("Problems with input");
-			
-			float sum = 0;
-			int howMany = 0;
-			
-			for(Grade tempG : AllofGrades) {
-				if(tempG.getStudent().equals(inputStudent)) {
-					sum += tempG.getValue();
-					howMany++;
-				}
-			}
-			return sum/howMany;
-		}
-		
-		public static float calculateAVWG(Student inputStudent) throws Exception{
-			if(inputStudent == null) throw new Exception("Problems with input");
-			
-			float sum = 0;
-			float howManyCP = 0;
-			
-			for(Grade tempG : AllofGrades) {
-				if(tempG.getStudent().equals(inputStudent)) {
-					sum += tempG.getValue() * tempG.getCourse().getCreditpoints();
-					howManyCP += tempG.getCourse().getCreditpoints();
-				}
-			}
-			return sum/howManyCP;
-		}
-		public static float courseAVG(Course inputCourse) throws Exception{
-			if(inputCourse == null) throw new Exception("Skill isuues");
-			 
-			float sum = 0;
-			int howManyStudents = 0;
-			
-			for(Grade tempG : AllofGrades) {
-				if(tempG.getCourse().equals(inputCourse)) {
-					sum += tempG.getValue();
-					howManyStudents++;
-				}
-			}
-			return sum/howManyStudents;
-		}
-		public static int ProfCourseCount(Professor inputProfessor) throws Exception{
-			if(inputProfessor == null) throw new Exception("Skill issues");
-			
-			int sum = 0;
-			for(Course tempC : AllofCourses) {
-				if(tempC.getProfessor().equals(inputProfessor)) {
-					sum++;
-				}
-			}
-			return sum;
-		}
-		
-		public static void sortStudents() throws Exception{
-			for(int i = 0; i < AllofStudents.size(); i++) {
-				for(int j = 0; j < AllofStudents.size(); j++) {
-					Student tempI = AllofStudents.get(i);
-					Student tempJ = AllofStudents.get(j);
-					if (tempI > tempJ) {
-						
-					}
-				}
-			}
-		}
-		
-		
-		
-		
-	}
-
-
+	
+}
