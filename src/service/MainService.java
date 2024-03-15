@@ -3,12 +3,14 @@ package service;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import model.Course;
 import model.Degree;
 import model.Grade;
 import model.Professor;
 import model.Student;
-//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
+//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 
 public class MainService {
 
 	
@@ -19,9 +21,9 @@ public class MainService {
 	
 	public static void main(String[] args) {
 		Professor pr1 = new Professor();//John Big - default Professor
-		Professor pr2 = new Professor("Karina", "Skirmante", Degree.mg);
-		Professor pr3 = new Professor("Estere", "Vitola", Degree.mg);
-		Professor pr4 = new Professor("Marcis", "Naktins", Degree.mg);
+		Professor pr2 = new Professor("Karina", "Skirmante","312311-23126", Degree.mg);
+		Professor pr3 = new Professor("Estere", "Vitola",  "123467-09853", Degree.mg);
+		Professor pr4 = new Professor("Marcis", "Naktins","213174-86431", Degree.mg);
 		allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
 		//TODO take a look to ArrayList class in JAVA documentations
 		for(int i = 0; i < allProfessors.size(); i++) {
@@ -106,6 +108,33 @@ public class MainService {
 						+calculateAVGForStudent(tempSt));
 			}
 			
+			Student temp = retrieveStudentByPersoncode("123456-09876");
+			System.out.println("Retrieve student by person code " + temp);
+			
+			createStudent("Sarah", "Green", "148336-87771");
+			
+			System.out.println("Create student testing (Sarah) - ");
+			for(Student tempSt : allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			updateStudentbyPersonCode("Viktors", "Kokin",  "123456-09876");
+			System.out.println("Update student testing Viktors - ");
+			for (Student tempSt : allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			deleteStudentByPersonCode("121298-67894");
+			System.out.println("Delete student testing (David)");
+			for (Student tempSt : allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			deleteStudentByPersonCode("12431241224");
+			System.out.println("Delete student testing (invalid)");
+			for (Student tempSt : allStudents) {
+				System.out.println(tempSt);
+			}
 			
 		}
 		catch (Exception e) {
@@ -114,10 +143,9 @@ public class MainService {
 		
 		
 	}
+
 	
-	
-	
-	
+
 	public static float calculateAVGForStudent(Student inputStudent) throws Exception {
 		if(inputStudent == null) throw new Exception("Problems with input");
 		
@@ -164,7 +192,9 @@ public class MainService {
 		if(inputCourse == null) throw new Exception("Problems with input");
 		
 		
-		float sum = 0;
+		float sum = 0;		Professor pr2 = new Professor("Karina", "Skirmante","312311-2312", Degree.mg);
+		Professor pr3 = new Professor("Estere", "Vitola",  "123467-09853", Degree.mg);
+		Professor pr4 = new Professor("Marcis", "Naktins","213174-86431", Degree.mg);
 		int howMany = 0;
 		
 		for(Grade tempGr: allGrades) {
@@ -265,8 +295,20 @@ public class MainService {
 				return;
 			}
 			
-		} throw new Exception("The student is not found in the list");
+		} throw new Exception("No student found with this person code");
 	
+	}
+	
+	public static void deleteStudentByPersonCode(String inputPersonCode) throws Exception{
+		if(inputPersonCode == null ) throw new Exception ("Invalid input");
+		
+		for (Student tempSt: allStudents) {
+			if(tempSt.getPersonCode().equals(inputPersonCode)) {
+				allStudents.remove(tempSt);
+				return;
+			}
+		}
+		throw new Exception("No student found with this person code");
 	}
 	
 }
